@@ -1,0 +1,77 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const BASE_URL = 'https://pixabay.com/api';
+const API_KEY = '41864490-ab1aa9c4772cfd6b871252eca';
+
+function fetchImage(
+  qWorld,
+  image_type = 'all',
+  orientation = 'horizontal',
+  safesearch = true
+) {
+  return fetch(
+    `${BASE_URL}/?key=${API_KEY}&q=${qWorld}&image_type=${image_type}&orientation=${orientation}&safesearch=${safesearch}`
+  ).then(resp => {
+    if (!resp.ok) {
+      throw new Error(resp.statusText);
+    }
+
+    return resp.json(); //повертає масив обєктів
+  });
+}
+
+const cardContainer = document.querySelector('.card-container');
+const searchForm = document.querySelector('.search-form');
+
+searchForm.addEventListener('submit', handleSearch);
+
+function handleSearch(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const query = form.elements.query.value;
+
+  //console.log(query);
+
+  fetchImage(query)
+    .then(renderImage)
+    .catch(onFetchError)
+    .finally(() => form.reset());
+}
+
+function renderImage({ hits }) {
+  const markup = hits
+    .map(
+      ({ previewURL }) =>
+        `
+        <li class="gallery-item">
+  <a class="gallery-link" href="${previewURL}">
+    <img
+      class="gallery-image"
+      src="${previewURL}"
+      
+    />
+  </a>
+</li>`
+    )
+    .join('');
+
+  cardContainer.innerHTML = markup;
+}
+
+function onFetchError(error) {
+  alert('Упс, щось пішло не так і ми не знайшли вашого покемона!');
+  console.error(error);
+}
+
+const refs = {
+  gallery: document.querySelector('.gallery'),
+};
+
+refs.gallery.innerHTML = renderImage(images);
+
+const gallery = new SimpleLightbox('.gallery-item a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
