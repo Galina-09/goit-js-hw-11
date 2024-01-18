@@ -4,22 +4,112 @@
   | default @import url()
   |============================
 */
-@import url('./reset.css');
 @import url('./vite-promo.css');
-@import url('./header.css');
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+body {
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.search-form {
+  padding-top: 36px;
+  padding-bottom: 32px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-control {
+  width: 272px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  color: #808080;
+
+  font-family: Montserrat;
   font-size: 16px;
-  line-height: 24px;
+  font-style: normal;
   font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.64px;
+  padding: 0;
+}
 
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+.btn {
+  width: 91px;
+  height: 40px;
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px #4e75ff;
+  background: #4e75ff;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.64px;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+/*Gallery*/
+img {
+  display: block;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 24px;
+  row-gap: 48px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0 auto;
+  max-width: 1128px;
+}
+
+.gallery-item {
+  flex-basis: calc((100% - 48px) / 3);
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 2px 2px 2px 0 #020202;
+  transition: transform 300ms ease-in-out;
+  background: url(<path-to-image>),
+    lightgray -76px -16.297px / 125.278% 150.297% no-repeat;
+}
+
+.gallery-image:hover,
+.gallery-image:focus {
+  transform: scale(1.1);
+}
+
+.modal-img {
+  width: 1112px;
+  height: 640px;
+  border-radius: 25px;
+}
+
+.gallery-item-description {
+  display: flex;
+  gap: 24px;
+  padding-top: 20px;
 }
