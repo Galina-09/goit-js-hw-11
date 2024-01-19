@@ -24,9 +24,9 @@ function fetchImage(
 }
 
 let gallery;
-const loader = document.querySelector('.loader');
 
 const refs = {
+  loader: document.querySelector('.loader'),
   gallery: document.querySelector('.gallery'),
   searchForm: document.querySelector('.search-form'),
 };
@@ -123,10 +123,10 @@ searchInput.addEventListener('focus', () => {
 
 function showLoader() {
   // Показати елемент завантажувача
-  loader.style.display = 'block';
+  refs.loader.style.display = 'block';
 }
 
 function hideLoader() {
   // Приховати елемент завантажувача
-  loader.style.display = 'none';
+  refs.loader.style.display = 'none';
 }
