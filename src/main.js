@@ -40,7 +40,6 @@ function handleSearch(event) {
   const query = form.elements.query.value;
   refs.gallery.innerHTML = '';
 
-  //console.log(query);
   showLoader();
 
   fetchImage(query)
@@ -70,7 +69,7 @@ function renderImage({ hits }) {
         views,
       }) =>
         `<li class="gallery-item">
-        <a class="gallery-link" href="${largeImageURL}" target="_blank">
+        <a class="gallery-link" href="${largeImageURL}">
           <img class="gallery-image" src="${webformatURL}" alt="${tags}">
           <ul class="gallery-item-description">
             <li>Likes: ${likes}</li>
@@ -85,24 +84,19 @@ function renderImage({ hits }) {
 
   refs.gallery.innerHTML = markup;
 
-  gallery = new SimpleLightbox('.gallery-item a', {
-    // Створення нового об'єкту SimpleLightbox , коли оновлюється галерея
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
+if (gallery === null) {
+      gallery = new SimpleLightbox('.gallery-item a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+      });
+    } else {
+      gallery.refresh();
 
-  gallery.refresh(); // Виклик метод refresh() після оновлення контенту
-}
+  }
 
 function onFetchError(error) {
-  alert('Упс, щось пішло не так і ми не знайшли вашого покемона!');
-  console.error(error);
-}
-
-function showMessage() {
   iziToast.show({
     class: 'error-svg',
-    icon: 'error-svg',
     theme: 'dark',
     message:
       'Sorry, there are no images matching your search query. Please try again! Please choose a date in the future',
