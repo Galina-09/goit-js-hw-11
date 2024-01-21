@@ -53,7 +53,10 @@ function handleSearch(event) {
 
 function renderImage({ hits }) {
   if (hits.length === 0) {
-    showMessage();
+    onFetchError(
+      null,
+      'Sorry, there are no images matching your search query. Please try again!'
+    );
     return;
   }
 
@@ -84,22 +87,23 @@ function renderImage({ hits }) {
 
   refs.gallery.innerHTML = markup;
 
-if (gallery === null) {
-      gallery = new SimpleLightbox('.gallery-item a', {
-        captionsData: 'alt',
-        captionDelay: 250,
-      });
-    } else {
-      gallery.refresh();
-
+  if (gallery === null) {
+    gallery = new SimpleLightbox('.gallery-item a', {
+      captionsData: 'alt',
+      captionDelay: 250,
+    });
+  } else {
+    gallery.refresh();
   }
+}
 
-function onFetchError(error) {
+function onFetchError(error, customMessage = '') {
+  const errorMessage =
+    customMessage || 'Sorry, there was an error fetching images.';
   iziToast.show({
     class: 'error-svg',
     theme: 'dark',
-    message:
-      'Sorry, there are no images matching your search query. Please try again! Please choose a date in the future',
+    message: errorMessage,
     messageSize: '16px',
     messageColor: 'white',
     backgroundColor: '#EF4040',
@@ -115,12 +119,16 @@ searchInput.addEventListener('focus', () => {
   refs.gallery.innerHTML = '';
 });
 
-function showLoader() {
-  // Показати елемент завантажувача
-  refs.loader.style.display = 'block';
-}
-
 function hideLoader() {
   // Приховати елемент завантажувача
-  refs.loader.style.display = 'none';
+  setTimeout(() => {
+    refs.loader.style.display = 'none';
+  }, 500);
+}
+
+function showLoader() {
+  // Показати елемент завантажувача
+  if (refs.loader.style.display !== 'block') {
+    refs.loader.style.display = 'block';
+  }
 }
