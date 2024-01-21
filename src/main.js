@@ -2,9 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
-const BASE_URL = 'https://pixabay.com/api';
-const API_KEY = '41864490-ab1aa9c4772cfd6b871252eca';
+import { API_KEY, BASE_URL } from './config';
 
 const refs = {
   searchForm: document.querySelector('.search-form'),
