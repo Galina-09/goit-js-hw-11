@@ -24,7 +24,7 @@ function handleSearch(event) {
   const query = form.elements.query.value;
 
   refs.imageList.innerHTML = '';
-
+  showLoader();
   fetchImage(query)
     .then(renderImage)
     .catch(handleError)
@@ -68,7 +68,7 @@ function showMessage(customMessage = '') {
   const errorMessage =
     customMessage || 'Sorry, there was an error fetching images.';
   iziToast.show({
-    iconUrl: './img/error.svg',
+    iconUrl: '../img/error.svg',
     theme: 'dark',
     message: errorMessage,
     messageSize: '16px',
